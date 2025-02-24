@@ -24,5 +24,13 @@ describe("QueryProcessor", () => {
         expect(response).toBe((
             "Rohan"
           ));
+    });
+
+    test('should return andrew id', () => {
+        const query = "What is your Andrew ID?";
+        const response: string = QueryProcessor(query);
+        expect(response).toBe((
+            "qijing"
+          ));
     })
 });
