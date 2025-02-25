@@ -48,6 +48,20 @@ export default function QueryProcessor(query: string): string {
     const sum = numbers.reduce((acc, curr) => acc + curr, 0);
     return sum.toString();
   }
+  if (query.toLowerCase().includes("multiplied")) {
+    // Extract all digits from the query
+    const matches = query.match(/\d+/g);
+    if (!matches) {
+      return "No numbers found to multiply.";
+    }
+
+    // Convert the extracted strings into numbers
+    const numbers = matches.map((numStr) => parseInt(numStr, 10));
+
+    // Sum them up
+    const sum = numbers.reduce((acc, curr) => acc * curr, 0);
+    return sum.toString();
+  }
 
   if (query.toLowerCase().includes("both a square and a cube")) {
     const matches = query.match(/\d+/g);
@@ -71,7 +85,7 @@ export default function QueryProcessor(query: string): string {
     }
     // Return all matching numbers or a message if none
     return results.length > 0 
-      ? `Numbers that are both a perfect square and cube: ${results.join(", ")}`
+      ? results.join(", ")
       : "No numbers in the query are both a perfect square and a perfect cube.";
   }
   
