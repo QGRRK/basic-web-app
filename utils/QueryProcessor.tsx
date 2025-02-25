@@ -34,7 +34,7 @@ export default function QueryProcessor(query: string): string {
   }
   
 
-  if (query.toLowerCase().includes("add")) {
+  if (query.toLowerCase().includes("plus")) {
     // Extract all digits from the query
     const matches = query.match(/\d+/g);
     if (!matches) {
@@ -47,6 +47,32 @@ export default function QueryProcessor(query: string): string {
     // Sum them up
     const sum = numbers.reduce((acc, curr) => acc + curr, 0);
     return sum.toString();
+  }
+
+  if (query.toLowerCase().includes("both a square and a cube")) {
+    const matches = query.match(/\d+/g);
+    if (!matches) {
+      return "No numbers found in the query.";
+    }
+
+    const numbers = matches.map((numStr) => parseInt(numStr, 10));
+    const results: number[] = [];
+
+    // A number is a perfect square if sqrt(n)^2 = n,
+    // and a perfect cube if cbrt(n)^3 = n.
+    for (const num of numbers) {
+      const sqrtN = Math.round(Math.sqrt(num));
+      const cbrtN = Math.round(Math.cbrt(num));
+
+      // Check if both conditions hold
+      if (sqrtN * sqrtN === num && cbrtN * cbrtN * cbrtN === num) {
+        results.push(num);
+      }
+    }
+    // Return all matching numbers or a message if none
+    return results.length > 0 
+      ? `Numbers that are both a perfect square and cube: ${results.join(", ")}`
+      : "No numbers in the query are both a perfect square and a perfect cube.";
   }
   
   
