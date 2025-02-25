@@ -14,6 +14,26 @@ export default function QueryProcessor(query: string): string {
     return "qijing";
   }
 
+  if (query.toLowerCase().includes("largest")) {
+    // Extract all digits from the query
+    const matches = query.match(/\d+/g);
+    if (!matches) {
+      return "No numbers found in the query.";
+    }
+
+    // Convert the extracted strings into numbers
+    const numbers = matches.map((numStr) => parseInt(numStr, 10));
+
+    // You can either sort and return the last item...
+    // numbers.sort((a, b) => a - b);
+    // return numbers[numbers.length - 1].toString();
+
+    // ...or simply use Math.max:
+    const largest = Math.max(...numbers);
+    return largest.toString();
+  }
+  
+
 
   
   
