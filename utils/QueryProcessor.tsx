@@ -34,7 +34,20 @@ export default function QueryProcessor(query: string): string {
   }
   
 
+  if (query.toLowerCase().includes("add")) {
+    // Extract all digits from the query
+    const matches = query.match(/\d+/g);
+    if (!matches) {
+      return "No numbers found to add.";
+    }
 
+    // Convert the extracted strings into numbers
+    const numbers = matches.map((numStr) => parseInt(numStr, 10));
+
+    // Sum them up
+    const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+    return sum.toString();
+  }
   
   
 
