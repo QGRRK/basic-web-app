@@ -59,7 +59,7 @@ export default function QueryProcessor(query: string): string {
     const numbers = matches.map((numStr) => parseInt(numStr, 10));
 
     // Sum them up
-    const sum = numbers.reduce((acc, curr) => acc * curr, 0);
+    const sum = numbers.reduce((acc, curr) => acc * curr, 1);
     return sum.toString();
   }
 
