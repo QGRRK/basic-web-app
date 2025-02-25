@@ -156,6 +156,23 @@ export default function QueryProcessor(query: string): string {
   
     return difference.toString();
   }
+  if (query.toLowerCase().includes("power")) {
+    // Attempt to match all digit sequences in the query
+    const matches = query.match(/\d+/g);
+    if (!matches || matches.length < 2) {
+      return "No valid base or exponent found in the query.";
+    }
+  
+    // The first number is our base, the second is our exponent
+    const base = parseInt(matches[0], 10);
+    const exponent = parseInt(matches[1], 10);
+  
+    // Calculate base^exponent
+    const result = base ** exponent; // or Math.pow(base, exponent)
+  
+    return result.toString();
+  }
+  
 
   
 
