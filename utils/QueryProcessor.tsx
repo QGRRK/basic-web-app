@@ -86,9 +86,40 @@ export default function QueryProcessor(query: string): string {
     // Return all matching numbers or a message if none
     return results.length > 0 
       ? results.join(", ")
-      : "No numbers in the query are both a perfect square and a perfect cube.";
+      : "";
   }
-  
+  if (query.toLowerCase().includes("prime")) {
+    const matches = query.match(/\d+/g);
+    if (!matches) {
+      return "No numbers found in the query.";
+    }
+
+    const numbers = matches.map((numStr) => parseInt(numStr, 10));
+
+    // Simple primality check helper
+    function isPrime(num: number): boolean {
+      // 0, 1, and negative numbers are not prime
+      if (num <= 1) return false;
+      // 2 is prime
+      if (num === 2) return true;
+      // Even numbers greater than 2 are not prime
+      if (num % 2 === 0) return false;
+
+      const upperLimit = Math.sqrt(num);
+      for (let i = 3; i <= upperLimit; i += 2) {
+        if (num % i === 0) return false;
+      }
+      return true;
+    }
+
+    // Filter out all primes
+    const primes = numbers.filter(isPrime);
+
+    return primes.length > 0
+      ? primes.join(", ")
+      : "";
+  }
+
   
 
   return "";
