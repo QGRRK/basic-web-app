@@ -48,6 +48,9 @@ export default function QueryProcessor(query: string): string {
     const sum = numbers.reduce((acc, curr) => acc + curr, 0);
     return sum.toString();
   }
+
+  
+
   if (query.toLowerCase().includes("multiplied")) {
     // Extract all digits from the query
     const matches = query.match(/\d+/g);
