@@ -123,6 +123,25 @@ export default function QueryProcessor(query: string): string {
       : "";
   }
 
+  if (query.toLowerCase().includes("minus")) {
+    const matches = query.match(/\d+/g);
+    if (!matches) {
+      return "No numbers found to subtract.";
+    }
+  
+    // Convert matches to an array of numbers
+    const numbers = matches.map(numStr => parseInt(numStr, 10));
+  
+    // Subtract them in sequence: first - second - third - ...
+    // (If there's only one number, just return that number)
+    let difference = numbers[0];
+    for (let i = 1; i < numbers.length; i++) {
+      difference -= numbers[i];
+    }
+  
+    return difference.toString();
+  }
+
   
 
   return "";
