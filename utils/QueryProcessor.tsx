@@ -168,7 +168,7 @@ export default function QueryProcessor(query: string): string {
     const exponent = parseInt(matches[1], 10);
   
     // Calculate base^exponent
-    const result = base ** exponent; // or Math.pow(base, exponent)
+    const result =Math.pow(base, exponent); // or Math.pow(base, exponent)
   
     return result.toString();
   }
