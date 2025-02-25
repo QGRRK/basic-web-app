@@ -96,31 +96,46 @@ export default function QueryProcessor(query: string): string {
     if (!matches) {
       return "No numbers found in the query.";
     }
-
+  
     const numbers = matches.map((numStr) => parseInt(numStr, 10));
-
-    // Simple primality check helper
-    function isPrime(num: number): boolean {
-      // 0, 1, and negative numbers are not prime
-      if (num <= 1) return false;
-      // 2 is prime
-      if (num === 2) return true;
-      // Even numbers greater than 2 are not prime
-      if (num % 2 === 0) return false;
-
-      const upperLimit = Math.sqrt(num);
-      for (let i = 3; i <= upperLimit; i += 2) {
-        if (num % i === 0) return false;
+    const primes: number[] = [];
+  
+    // Inline check for each number
+    for (let i = 0; i < numbers.length; i++) {
+      const num = numbers[i];
+  
+      // 0, 1, or negative are not prime
+      if (num <= 1) {
+        continue;
       }
-      return true;
+  
+      // 2 is prime
+      if (num === 2) {
+        primes.push(num);
+        continue;
+      }
+  
+      // Even numbers greater than 2 are not prime
+      if (num % 2 === 0) {
+        continue;
+      }
+  
+      // Check divisibility from 3 to sqrt(num)
+      let isPrime = true;
+      const upperLimit = Math.sqrt(num);
+      for (let j = 3; j <= upperLimit; j += 2) {
+        if (num % j === 0) {
+          isPrime = false;
+          break;
+        }
+      }
+  
+      if (isPrime) {
+        primes.push(num);
+      }
     }
-
-    // Filter out all primes
-    const primes = numbers.filter(isPrime);
-
-    return primes.length > 0
-      ? primes.join(", ")
-      : "";
+  
+    return primes.length > 0 ? primes.join(", ") : "";
   }
 
   if (query.toLowerCase().includes("minus")) {
